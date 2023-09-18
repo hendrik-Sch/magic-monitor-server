@@ -1,0 +1,58 @@
+{
+    "port": 4000,
+    "https": {
+        "keyPath": "./cert/key.pem",
+        "certPath": "./cert/cert.pem"
+    },
+    "cors": {
+        "origin": [
+            "http://localhost:4001",
+            "http://192.168.178.39:4001"
+        ]
+    },
+    "database": {
+        "host": "127.0.0.1",
+        "port": 9005,
+        "username": "",
+        "password": "",
+        "database": "",
+        "dialect": "mysql"
+    },
+    "i10n": {
+        "moment": "de-DE"
+    },
+    "auth": {
+        "secret": "zuXr!23ß47v§nJfd+jifcAmcfW7.fc#scWE.5u85ce",
+        "expireDays": 7
+    },
+    "logging": {
+        "logDirectory": "/Users/schuermann/Documents/projects/magic-monitor/server/logs"
+    },
+    "email": {
+        "service": {
+            "host": "smtp.ionos.de",
+            "port": 465,
+            "secure": true,
+            "auth": {
+                "user": "",
+                "pass": ""
+            }
+        }
+    },
+    "watch": {
+        "manager_version": "/Users/schuermann/Documents/projects/magic-monitor/client/public/manifest.json"
+    },
+    "idleInterfaces": {
+        "interval": 60000
+    },
+    "runningInterfaces": {
+        "interval": 15000
+    },
+    "logfileLocations": [
+        "/Users/schuermann/Downloads/logfiles"
+    ],
+    "programmLocations": [
+        "/Users/schuermann/Downloads/projects_sim_1",
+        "/Users/schuermann/Downloads/projects_sim_2"
+    ]
+}

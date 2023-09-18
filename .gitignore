@@ -1,0 +1,11 @@
+/node_modules
+
+/public
+/cert
+/logs
+/files
+
+.DS_Store
+
+/data/*
+!/data/formConfig/
