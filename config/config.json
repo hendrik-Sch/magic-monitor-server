@@ -1,13 +1,13 @@
 {
     "port": 4000,
     "https": {
-        "keyPath": "./cert/key.pem",
-        "certPath": "./cert/cert.pem"
+        "keyPath": "E:\\etc\\ssl\\certs\\cert.key",
+        "caPath": "E:\\etc\\ssl\\certs\\ca-bundle.crt",
+        "certPath": "E:\\etc\\ssl\\certs\\cert.crt"
     },
     "cors": {
         "origin": [
-            "http://localhost:4001",
-            "http://192.168.178.39:4001"
+            "https://desgnas122"
         ]
     },
     "database": {
@@ -22,11 +22,11 @@
         "moment": "de-DE"
     },
     "auth": {
-        "secret": "zuXr!23ß47v§nJfd+jifcAmcfW7.fc#scWE.5u85ce",
+        "secret": "4BsÜ35-vegcutrF+4jkf3E$503tgSerFedfv56+D43WSbhdwjx234k$%2",
         "expireDays": 7
     },
     "logging": {
-        "logDirectory": "/Users/schuermann/Documents/projects/magic-monitor/server/logs"
+        "logDirectory": "E:\\opt\\magic-monitor\\server\\logs"
     },
     "email": {
         "service": {
@@ -39,9 +39,6 @@
             }
         }
     },
-    "watch": {
-        "manager_version": "/Users/schuermann/Documents/projects/magic-monitor/client/public/manifest.json"
-    },
     "idleInterfaces": {
         "interval": 60000
     },
@@ -49,10 +46,9 @@
         "interval": 15000
     },
     "logfileLocations": [
-        "/Users/schuermann/Downloads/logfiles"
+        "E:\\log\\xpi\\projects"
     ],
     "programmLocations": [
-        "/Users/schuermann/Downloads/projects_sim_1",
-        "/Users/schuermann/Downloads/projects_sim_2"
+        "C:\\XPIProjects"
     ]
 }

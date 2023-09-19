@@ -21,11 +21,13 @@ const app = express();
 // app.use(routes);
 
 const options = {
-    key: fs.readFileSync(Config.https.keyPath, 'utf-8'),
     cert: fs.readFileSync(Config.https.certPath, 'utf-8')
 };
 
-if (Config.https.ca) {
+if (Config.https.keyPath) {
+    options.key = fs.readFileSync(Config.https.keyPath, 'utf-8');
+}
+if (Config.https.caPath) {
     options.ca = fs.readFileSync(Config.https.caPath, 'utf-8');
 }
 

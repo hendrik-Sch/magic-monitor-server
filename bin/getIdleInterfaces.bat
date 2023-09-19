@@ -1,0 +1,1 @@
+"C:\Magic xpi 4.13\Runtime\Gigaspaces-xpi\bin\magicxpi-setenv.bat" && "C:\Magic xpi 4.13\Runtime\Gigaspaces\bin\gs" --cli-version=1 space sql -url jini://*/*/MAGIC_SPACE -multispace -query "select messageStatus,projectKey from com.magicsoftware.xpi.server.messages.FlowRequest"

@@ -3,14 +3,17 @@ const execSync = require('child_process').exec;
 const DecodeIdleInterfaces = require('../decoder/decodeIdleInterfaces');
 const DecodeRunningInterfaces = require('../decoder/decodeRunningInterfaces');
 
+const idleCmd = `"C:\\Magic xpi 4.13\\Runtime\\Gigaspaces-xpi\\bin\\magicxpi-setenv.bat" && "C:\\Magic xpi 4.13\\Runtime\\Gigaspaces\\bin\\gs" --cli-version=1 space sql -url jini://*/*/MAGIC_SPACE -multispace -query "select projectKey from com.magicsoftware.xpi.server.data.project.ProjectData"`;
+const runningCmd = `"C:\\Magic xpi 4.13\\Runtime\\Gigaspaces-xpi\\bin\\magicxpi-setenv.bat" && "C:\\Magic xpi 4.13\\Runtime\\Gigaspaces\\bin\\gs" --cli-version=1 space sql -url jini://*/*/MAGIC_SPACE -multispace -query "select messageStatus,projectKey from com.magicsoftware.xpi.server.messages.FlowRequest"`;
+
 async function queryIdleInterfaces() {
     return new Promise((res, rej) => {
-        execSync('cat /Users/schuermann/Downloads/idle_cmd_output.txt', (error, stdout, stderr) => {
+        execSync(idleCmd, (error, stdout, stderr) => {
             if (error) {
                 rej(error);
                 return;
             }
-            if (stderr) {
+            if (!stdout && stderr) {
                 rej(stderr);
                 return;
             }
@@ -24,12 +27,12 @@ async function queryIdleInterfaces() {
 
 async function queryRunningInterfaces() {
     return new Promise((res, rej) => {
-        execSync('cat /Users/schuermann/Downloads/running_cmd_output.txt', (error, stdout, stderr) => {
+        execSync(runningCmd, (error, stdout, stderr) => {
             if (error) {
                 rej(error);
                 return;
             }
-            if (stderr) {
+            if (!stdout && stderr) {
                 rej(stderr);
                 return;
             }

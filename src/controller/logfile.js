@@ -36,18 +36,22 @@ const Logger = require('../logger');
 // });
 
 async function LoadLog(interfaceName, date) {
-    const fileName = `${date}-${interfaceName}-Log.txt`;
+    try {
+        const fileName = `${date}-${interfaceName}-Log.txt`;
 
-    for (let i = 0; i < Config.logfileLocations.length; i++) {
-        const directory = Config.logfileLocations[i];
-        try {
-            const filePath = path.join(directory, fileName);
-            const csvContent = await readFile(filePath);
-            const content = await DecodeLogfile(csvContent, filePath);
+        for (let i = 0; i < Config.logfileLocations.length; i++) {
+            const directory = Config.logfileLocations[i];
+            try {
+                const filePath = path.join(directory, fileName);
+                const csvContent = await readFile(filePath);
+                const content = await DecodeLogfile(csvContent, filePath);
 
-            return content;
-        } catch (error) {
+                return content;
+            } catch (error) {
+            }
         }
+    } catch (error) {
+        Logger.error(`Failed to load log ${error.message}`);
     }
 
     return null;

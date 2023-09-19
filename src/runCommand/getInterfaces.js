@@ -7,7 +7,7 @@ async function GetInterfaces() {
     const prom = Config.programmLocations.map(async (location) => {
         const dirContent = await readdir(location);
         dirContent.forEach(content => {
-            if (content !== '.DS_Store' && !content.endsWith('_')) {
+            if (!content.startsWith('.') && !content.endsWith('_')) {
                 interfaces[content] = { location };
             }
         });

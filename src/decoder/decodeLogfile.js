@@ -3,10 +3,10 @@ const moment = require('moment');
 const Logger = require('../logger');
 
 function TransformData(data) {
-    return data.map(({ ID, Timestamp, TypID, ...row }, index) => ({
+    return data.map(({ ID, Timestamp, TypID, TypeID, ...row }, index) => ({
         id: index,
         job: ID,
-        TypID: Number(TypID),
+        TypeID: Number(TypeID || TypID || 0),
         Timestamp: moment(Timestamp, 'YYYY-MM-DD-HH.mm.ss.SSSSSS').format('YYYY-MM-DD HH:mm:ss.SSS'),
         ...row
     }));
