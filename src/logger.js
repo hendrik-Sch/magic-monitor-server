@@ -15,7 +15,7 @@ const customFormat = format.printf(({ level, message, timestamp }) => {
 
 const dailyRotateTransport = new transports.DailyRotateFile({
     dirname: logDirectory,
-    filename: `${Package.name}%DATE%.log`,
+    filename: `${Package.name}_%DATE%.log`,
     datePattern: 'YYYY-MM-DD',
     zippedArchive: true,
     maxSize: '20m',

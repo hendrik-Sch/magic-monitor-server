@@ -15,6 +15,8 @@ class InterfaceController {
     static watcher = Watcher;
 
     static async loadInterfaces() {
+        Logger.debug(`Started loading interfaces`);
+
         try {
             const prevInterfaces = _.cloneDeep(interfaces);
 
@@ -39,11 +41,13 @@ class InterfaceController {
             }
             interfaces = _.sortBy(interfaces, ['name']);
             if (!_.isEqual(interfaces, prevInterfaces)) {
-                this.watcher.emit(`programms:change`);
+                this.watcher.emit(`interfaces:change`);
             }
         } catch (error) {
             Logger.error(`Failed to load interfaces.`);
         }
+
+        Logger.debug(`Finished loading interfaces`);
     }
 
     static getInterfaces() {
@@ -86,7 +90,7 @@ class InterfaceController {
 
 InterfaceController.watcher.on(`programms:change`, async () => {
     await InterfaceController.loadInterfaces();
-    InterfaceController.watcher.emit(`interfaces:change`);
+    // InterfaceController.watcher.emit(`interfaces:change`);
 });
 
 module.exports = InterfaceController;

@@ -1,4 +1,5 @@
 {
+  "name": "magic-monitor-server",
   "dependencies": {
     "csv": "^6.3.3",
     "express": "^4.18.2",
