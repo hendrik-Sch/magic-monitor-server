@@ -4,11 +4,13 @@ const Config = require('../../config/config.json');
 async function GetInterfaces() {
     const interfaces = {};
 
-    const prom = Config.programmLocations.map(async (location) => {
+    const prom = Config.hosts.map(async (host) => {
+        const location = `\\\\${host}\\xpiProjects`;
+
         const dirContent = await readdir(location);
         dirContent.forEach(content => {
             if (!content.startsWith('.') && !content.endsWith('_')) {
-                interfaces[content] = { location };
+                interfaces[content] = { location, host };
             }
         });
     });

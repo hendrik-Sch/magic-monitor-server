@@ -16,22 +16,20 @@ class InterfaceController {
 
     static async loadInterfaces() {
         try {
-            const allInterfacesProm = GetInterfaces();
-            const interfacesStateProm = GetInterfacesState();
-
             const prevInterfaces = _.cloneDeep(interfaces);
 
+            const allInterfacesProm = GetInterfaces();
+            const interfacesStateProm = GetInterfacesState();
             const [allInterfaces, interfacesState] = await Promise.all([allInterfacesProm, interfacesStateProm]);
 
             interfaces = [];
             for (const name in allInterfaces) {
                 if (Object.hasOwnProperty.call(allInterfaces, name)) {
-                    const { location } = allInterfaces[name];
                     const { idle = false, running = false } = interfacesState[name] || {};
 
                     interfaces.push({
+                        ...allInterfaces[name],
                         name,
-                        location,
                         idle,
                         running,
                         stopRequested: false,
@@ -65,7 +63,7 @@ class InterfaceController {
 
             await StopInterface(intf);
         } catch (error) {
-            Logger.error(`Failed to stop ${intf}.`);
+            Logger.error(`Failed to stop ${name}.`);
         }
     }
 
@@ -81,7 +79,7 @@ class InterfaceController {
 
             await StartInterface(intf);
         } catch (error) {
-            Logger.error(`Failed to start ${intf}.`);
+            Logger.error(`Failed to start ${name}.`);
         }
     }
 }

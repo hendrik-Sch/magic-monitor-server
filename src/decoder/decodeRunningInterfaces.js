@@ -1,12 +1,8 @@
-const headerLine = `
------------------------------------------------------------------+------------------------------------------------------------------|
-messageStatus                                                    | projectKey                                                       |
------------------------------------------------------------------+------------------------------------------------------------------|
-`;
+const headerLine = `-----------------------------------------------------------------+------------------------------------------------------------------|`;
 
 function DecodeRunningInterfaces(cmdOutput) {
     try {
-        const headerlineEndIndex = String(cmdOutput).indexOf(headerLine) + headerLine.length;
+        const headerlineEndIndex = String(cmdOutput).lastIndexOf(headerLine) + headerLine.length;
 
         return String(cmdOutput)
             .substring(headerlineEndIndex)

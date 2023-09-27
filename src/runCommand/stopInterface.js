@@ -1,18 +1,21 @@
-const path = require('path');
 const execSync = require('child_process').exec;
+
+const Config = require('../../config/config.json');
+
+const stdErrorNoti = "Attempting to perform the InitializeDefaultDrives operation on the 'FileSystem' provider failed.";
 
 function StopInterface(interface) {
     return new Promise((res, rej) => {
-        const { name, location } = interface;
+        const { name, host } = interface;
 
-        const cmd = `${location}${path.sep}${name}${path.sep}${name}${path.sep}Stop.lnk`;
+        const cmd = `winrs /r:${host} '${Config.program_dir}\\${name}\\${name}\\Stop.lnk'`;
 
-        execSync(cmd, (error, stdout, stderr) => {
+        execSync(cmd, { shell: 'powershell' }, (error, stdout, stderr) => {
             if (error) {
                 rej(error);
                 return;
             }
-            if (stderr) {
+            if (stderr && !String(stderr).startsWith(stdErrorNoti)) {
                 rej(stderr);
                 return;
             }

@@ -39,6 +39,7 @@
             }
         }
     },
+    "program_dir": "C:\\XPIProjects",
     "idleInterfaces": {
         "interval": 60000
     },
@@ -48,7 +49,8 @@
     "logfileLocations": [
         "E:\\log\\xpi\\projects"
     ],
-    "programmLocations": [
-        "C:\\XPIProjects"
+    "hosts": [
+        "desgnas120",
+        "desgnas116"
     ]
 }

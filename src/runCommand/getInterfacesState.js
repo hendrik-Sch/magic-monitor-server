@@ -1,5 +1,7 @@
 const execSync = require('child_process').exec;
 
+const Config = require('../../config/config.json');
+
 const DecodeIdleInterfaces = require('../decoder/decodeIdleInterfaces');
 const DecodeRunningInterfaces = require('../decoder/decodeRunningInterfaces');
 
@@ -7,41 +9,55 @@ const idleCmd = `"C:\\Magic xpi 4.13\\Runtime\\Gigaspaces-xpi\\bin\\magicxpi-set
 const runningCmd = `"C:\\Magic xpi 4.13\\Runtime\\Gigaspaces-xpi\\bin\\magicxpi-setenv.bat" && "C:\\Magic xpi 4.13\\Runtime\\Gigaspaces\\bin\\gs" --cli-version=1 space sql -url jini://*/*/MAGIC_SPACE -multispace -query "select messageStatus,projectKey from com.magicsoftware.xpi.server.messages.FlowRequest"`;
 
 async function queryIdleInterfaces() {
-    return new Promise((res, rej) => {
-        execSync(idleCmd, (error, stdout, stderr) => {
-            if (error) {
-                rej(error);
-                return;
-            }
-            if (!stdout && stderr) {
-                rej(stderr);
-                return;
-            }
+    const proms = Config.hosts.map(async host => {
+        return new Promise((res, rej) => {
+            const cmd = `winrs /r:${host} '${idleCmd}'`;
+            execSync(cmd, { shell: 'powershell' }, (error, stdout, stderr) => {
+                if (error) {
+                    rej(error);
+                    return;
+                }
+                if (!stdout && stderr) {
+                    rej(stderr);
+                    return;
+                }
 
-            const interfaces = DecodeIdleInterfaces(stdout);
+                const interfaces = DecodeIdleInterfaces(stdout);
 
-            res(interfaces);
+                res(interfaces);
+            });
         });
     });
+
+    const result = await Promise.all(proms);
+
+    return result.flat();
 }
 
 async function queryRunningInterfaces() {
-    return new Promise((res, rej) => {
-        execSync(runningCmd, (error, stdout, stderr) => {
-            if (error) {
-                rej(error);
-                return;
-            }
-            if (!stdout && stderr) {
-                rej(stderr);
-                return;
-            }
+    const proms = Config.hosts.map(async host => {
+        return new Promise((res, rej) => {
+            const cmd = `winrs /r:${host} '${runningCmd}'`;
+            execSync(cmd, { shell: 'powershell' }, (error, stdout, stderr) => {
+                if (error) {
+                    rej(error);
+                    return;
+                }
+                if (!stdout && stderr) {
+                    rej(stderr);
+                    return;
+                }
 
-            const interfaces = DecodeRunningInterfaces(stdout);
+                const interfaces = DecodeRunningInterfaces(stdout);
 
-            res(interfaces);
+                res(interfaces);
+            });
         });
     });
+
+    const result = await Promise.all(proms);
+
+    return result.flat();
 }
 
 async function GetInterfacesState() {
